@@ -65,7 +65,7 @@ def main():
    set_seed(training_args.seed)
    
    try:
-       tokenizer_path_or_name='llama-tokenizer' # Update with your specific tokenizer path or identifier. 
+       tokenizer_path_or_name="meta-llama/Llama-2-7b-hf" # Update with your specific tokenizer path or identifier. 
        tokenizer = AutoTokenizer.from_pretrained(tokenizer_path_or_name)
        
        tokenized_datasets = load_from_disk(Path(dataset_args.dataset_path))

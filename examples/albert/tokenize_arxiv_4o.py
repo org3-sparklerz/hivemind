@@ -67,7 +67,7 @@ if __name__ == "__main__":
     nltk.download("punkt")
     
     # Load the LLaMA tokenizer
-    tokenizer = AutoTokenizer.from_pretrained("llama-tokenizer")  # Update with your specific tokenizer path or identifier
+    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-hf")  # Update with your specific tokenizer path or identifier
     
     # Load the ArXiv abstract dataset
     arxiv_dataset = load_dataset("ash001/arxiv-abstract", split="train", cache_dir="./data/cache")
