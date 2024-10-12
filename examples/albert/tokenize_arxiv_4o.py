@@ -70,7 +70,7 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-hf")  # Update with your specific tokenizer path or identifier
     
     # Load the ArXiv abstract dataset
-    arxiv_dataset = load_dataset("ash001/arxiv-abstract", split="train", cache_dir="./data/cache")
+    arxiv_dataset = load_dataset("ash001/arxiv-abstract", split="train[:60000]", cache_dir="./data/cache")
     
     # Tokenize the dataset
     tokenized_datasets = arxiv_dataset.map(
