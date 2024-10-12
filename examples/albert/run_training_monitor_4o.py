@@ -74,8 +74,17 @@ class CheckpointHandler:
         self.upload_interval = monitor_args.upload_interval
         self.previous_step = -1
 
-        config = AutoConfig.from_pretrained(monitor_args.model_config_path)
-        self.model = AutoModelForCausalLM.from_config(config)
+        logger.info(f"Attempting to load config from: {monitor_args.model_config_path}")
+
+        try:
+            config = AutoConfig.from_pretrained(monitor_args.model_config_path)
+            logger.info("Successfully loaded config")
+            logger.info(f"Attempting to create model with config: {config}")
+            self.model = AutoModelForCausalLM.from_config(config)
+            logger.info("Successfully created model")
+        except Exception as e:
+            logger.error(f"Error loading model config or creating model: {str(e)}")
+            raise     
 
         no_decay = ["bias", "LayerNorm.weight"]
         optimizer_grouped_parameters = [
