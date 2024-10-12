@@ -49,7 +49,7 @@ def create_instances_from_document(tokenizer, document, max_seq_length):
 
 def tokenize_function(tokenizer, examples):
     # Remove empty texts
-    texts = (text for text in examples["abstract"] if len(text) > 0 and not text.isspace())
+    texts = (text for text in examples["text"] if len(text) > 0 and not text.isspace())
     
     new_examples = {col: [] for col in COLUMN_NAMES}
     
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         partial(tokenize_function, tokenizer),
         batched=True,
         num_proc=8,
-        remove_columns=["abstract"],  # Remove original abstract column after tokenization
+        remove_columns=["text"],  # Remove original abstract column after tokenization
     )
     
     # Save the tokenized dataset to disk
