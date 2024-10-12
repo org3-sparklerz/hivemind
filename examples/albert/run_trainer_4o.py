@@ -40,9 +40,9 @@ def setup_transformers_logging(process_rank: int):
 
 
 def get_model(training_args):
-   logger.info(f"Loading LLaMA model")   
-   model_name_or_path = 'llama-7b' # Update with your specific model path or identifier.   
-   model = AutoModelForCausalLM.from_pretrained(model_name_or_path)
+    logger.info(f"Loading LLaMA model")   
+    model_name_or_path = 'llama-7b' # Update with your specific model path or identifier.   
+    model = AutoModelForCausalLM.from_pretrained(model_name_or_path)
     return model
 
 def main():

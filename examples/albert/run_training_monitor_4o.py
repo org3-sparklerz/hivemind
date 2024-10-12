@@ -11,6 +11,8 @@ import wandb
 from torch_optimizer import Lamb
 from transformers import AutoConfig, AutoModelForCausalLM, HfArgumentParser, get_linear_schedule_with_warmup
 
+import traceback
+
 import hivemind
 from hivemind.optim.state_averager import TrainingStateAverager
 from hivemind.utils.logging import get_logger, use_hivemind_log_handler
@@ -80,8 +82,13 @@ class CheckpointHandler:
             config = AutoConfig.from_pretrained(monitor_args.model_config_path)
             logger.info("Successfully loaded config")
             logger.info(f"Attempting to create model with config: {config}")
-            self.model = AutoModelForCausalLM.from_config(config)
-            logger.info("Successfully created model")
+            try:
+                self.model = AutoModelForCausalLM.from_config(config).cpu()
+                logger.info("Successfully created model")
+            except Exception as e:
+                logger.error(f"Error creating model: {str(e)}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
+                raise
         except Exception as e:
             logger.error(f"Error loading model config or creating model: {str(e)}")
             raise     
